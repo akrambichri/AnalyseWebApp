@@ -1,0 +1,9 @@
+<ul class="list-group" *ngIf="clients">
+  <li [ngClass]="currentClient && currentClient._links.self == c._links.self?'active':''"
+      *ngFor="let c of clients._embedded.clients"
+      class="list-group-item"
+      style="cursor: pointer" (click)="onGetAnalyses(c)">
+   {{c.nom}}
+  </li>
+</ul>
+

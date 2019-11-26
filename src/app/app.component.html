@@ -1,0 +1,36 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Analyses</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown" *ngIf="isAuthenticated()">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
+          <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li *ngIf="isManager()"><a routerLink="/adminClients">Gestion de Clients</a></li>
+          <li *ngIf="isManager()"><a routerLink="/adminAnalyses">Gestion de Analyses</a></li>
+          <li *ngIf="isAdmin()"><a routerLink="/adminUsers">Gestion de Utilisateurs</a></li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+      <li>
+        <a *ngIf="!isAuthenticated()" routerLink="login">Login</a>
+        <a *ngIf="isAuthenticated()" style="cursor: pointer" (click)="onLogout()">Logout</a>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+<div class="row">
+  <div class="col-md-2">
+    <app-clients></app-clients>
+  </div>
+  <div class="col-md-9">
+  <router-outlet>
+
+  </router-outlet>
+  </div>
+</div>

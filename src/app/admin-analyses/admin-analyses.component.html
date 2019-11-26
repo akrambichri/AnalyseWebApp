@@ -1,0 +1,79 @@
+<div class="panel panel-default" >
+  <button *ngIf="authService.isManager()"
+          class="btn btn-danger pull-right"
+          (click)="onNewClt()">New Analyse</button>
+  <div class="panel-heading">Gestion des analyses
+  </div>
+  <div class="panel-body" *ngIf="mode === 'new'" >
+    <form #f="ngForm" (ngSubmit)="onSaveClt(f.value)">
+      <div class="form-group">
+        <label class="control-label">Analyse Nom</label>
+        <input type="text"  name="nom" ngModel class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Analyse date</label>
+        <input type="date"  name="date" ngModel class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Analyse prix</label>
+        <input type="text"  name="prix" ngModel class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Analyse resultat</label>
+        <input type="text"  name="resultat" ngModel class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Analyse connu</label>
+        <input type="text"  name="connu" ngModel class="form-control"/>
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+  </div>
+
+  <div class="panel-body" *ngIf="mode === 'edit'" >
+    <form #f="ngForm" (ngSubmit)="onUpdateClt(f.value)">
+      <div class="form-group">
+        <label class="control-label">Analyse Nom</label>
+        <input type="text"  name="nom" ngModel class="form-control" [(ngModel)] = "currentAnalyse.nom"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Analyse date</label>
+        <input type="date"  name="date" ngModel class="form-control" [(ngModel)] = "currentAnalyse.date"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Analyse prix</label>
+        <input type="text"  name="prix" ngModel class="form-control" [(ngModel)] = "currentAnalyse.prix"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Analyse resultat</label>
+        <input type="text"  name="resultat" ngModel class="form-control" [(ngModel)] = "currentAnalyse.resultat"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Analyse connu</label>
+        <input type="text"  name="connu" ngModel class="form-control" [(ngModel)] = "currentAnalyse.connu"/>
+      </div>
+      <div class="form-group" *ngIf="clients">
+      </div>
+
+
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+  </div>
+
+  <div class="panel-body" *ngIf="mode === 'default'">
+    <table class="table" *ngIf="analyses">
+      <tr> <th>Name</th></tr>
+      <tr *ngFor="let clt of analyses._embedded.analyses">
+        <td> {{clt.nom}} </td>
+        <td>
+          <button class="btn btn-danger" (click)="onDeleteClt(clt)"> <span class="glyphicon glyphicon-remove"> </span></button>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="onEditClt(clt)"> <span class="glyphicon glyphicon-edit"> </span></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+

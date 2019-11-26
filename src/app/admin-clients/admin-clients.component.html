@@ -1,0 +1,59 @@
+<div class="panel panel-default" >
+  <button *ngIf="authService.isManager()"
+          class="btn btn-danger pull-right"
+          (click)="onNewClt()">New Client</button>
+<div class="panel-heading">Gestion des clients
+</div>
+  <div class="panel-body" *ngIf="mode === 'new'" >
+    <form #f="ngForm" (ngSubmit)="onSaveClt(f.value)">
+      <div class="form-group">
+        <label class="control-label">Client Nom</label>
+        <input type="text"  name="nom" ngModel class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Client Prenom</label>
+        <input type="text"  name="prenom" ngModel class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Client Photo</label>
+        <input type="text"  name="photo" ngModel class="form-control"/>
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+  </div>
+
+  <div class="panel-body" *ngIf="mode === 'edit'" >
+    <form #f="ngForm" (ngSubmit)="onUpdateClt(f.value)">
+      <div class="form-group">
+        <label class="control-label">Client Nom</label>
+        <input type="text"  name="nom" ngModel class="form-control" [(ngModel)] = "currentClient.nom"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Client Prenom</label>
+        <input type="text"  name="prenom" ngModel class="form-control" [(ngModel)] = "currentClient.prenom"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Client Photo</label>
+        <input type="text"  name="photo" ngModel class="form-control" [(ngModel)] = "currentClient.photo"/>
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+  </div>
+
+<div class="panel-body" *ngIf="mode === 'default'">
+<table class="table" *ngIf="clients">
+<tr> <th>Name</th></tr>
+<tr *ngFor="let clt of clients._embedded.clients">
+<td> {{clt.nom}} </td>
+<td>
+<button class="btn btn-danger" (click)="onDeleteClt(clt)"> <span class="glyphicon glyphicon-remove"> </span></button>
+</td>
+<td>
+  <button class="btn btn-danger" (click)="onEditClt(clt)"> <span class="glyphicon glyphicon-edit"> </span></button>
+</td>
+</tr>
+</table>
+</div>
+</div>
+
+

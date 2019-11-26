@@ -1,0 +1,16 @@
+<table *ngIf="analyses" class="table table-striped">
+  <tr>
+    <th>nom</th>
+    <th>date</th>
+    <th>prix</th>
+    <th>resultat</th>
+    <th>connu</th>
+  </tr>
+  <tr  *ngFor="let p of analyses._embedded.analyses">
+    <td>{{p.nom}}</td>
+    <td>{{p.date}}</td>
+    <td>{{p.prix}}</td>
+    <td>{{p.resultat}}</td>
+    <td>{{p.connu}}</td>
+  </tr>
+</table>

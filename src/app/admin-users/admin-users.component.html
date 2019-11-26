@@ -1,0 +1,59 @@
+<div class="panel panel-default" >
+  <button *ngIf="authService.isAdmin()"
+          class="btn btn-danger pull-right"
+          (click)="onNewUser()">New Client</button>
+  <div class="panel-heading">Gestion des utilisateurs
+  </div>
+  <div class="panel-body" *ngIf="mode === 'new'" >
+    <form #f="ngForm" (ngSubmit)="onSaveUser(f.value)">
+      <div class="form-group">
+        <label class="control-label">UserName</label>
+        <input type="text"  name="username" ngModel class="form-control" />
+      </div>
+      <div class="form-group">
+        <label class="control-label">User password</label>
+        <input type="text"  name="password" ngModel class="form-control" />
+      </div>
+      <div class="form-group">
+        <label class="control-label">User Statut</label>
+        <input type="text"  name="activated" ngModel class="form-control"/>
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+  </div>
+
+  <div class="panel-body" *ngIf="mode === 'edit'" >
+    <form #f="ngForm" (ngSubmit)="onUpdateUser(f.value)">
+      <div class="form-group">
+        <label class="control-label">UserName</label>
+        <input type="text"  name="username" ngModel class="form-control" [(ngModel)] = "currentUser.username"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">User password</label>
+        <input type="text"  name="password" ngModel class="form-control" [(ngModel)] = "currentUser.password"/>
+      </div>
+      <div class="form-group">
+        <label class="control-label">User Statut</label>
+        <input type="text"  name="activated" ngModel class="form-control" [(ngModel)] = "currentUser.actived"/>
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+  </div>
+
+  <div class="panel-body" *ngIf="mode === 'default'">
+    <table class="table" *ngIf="users">
+      <tr> <th>Name</th></tr>
+      <tr *ngFor="let clt of users._embedded.appUsers">
+        <td> {{clt.username}} </td>
+        <td>
+          <button class="btn btn-danger" (click)="onDeleteUser(clt)"> <span class="glyphicon glyphicon-remove"> </span></button>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="onEditUser(clt)"> <span class="glyphicon glyphicon-edit"> </span></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
